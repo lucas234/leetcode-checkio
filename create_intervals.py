@@ -7,30 +7,36 @@
 
 
 def create_intervals(int_set):
-    return
+    response, b, e = [], 0, 0
+    if not int_set:
+        return response
+    int_set = sorted(list(int_set))
+    for i in range(1, len(int_set)):
+        if int_set[i] - int_set[e] > 1:
+            response.append((int_set[b], int_set[e]))
+            b = i
+        e = i
+    if (int_set[b], int_set[e]) not in response:
+        response.append((int_set[b], int_set[e]))
+    return response
 
 
 print create_intervals({1, 2, 3, 4, 5, 7, 8, 12}) == [(1, 5), (7, 8), (12, 12)]
 print create_intervals({1, 2, 3, 6, 7, 8, 4, 5}) == [(1, 8)]
 
-int_set = {6, 7, 8}  # {1, 2, 3, 4, 5, 7, 8, 12}
-# new_set = {i + 1 for i in int_set}  # set(map(lambda x: x+1, int_set))
-# # print int_set.difference(new_set)
-# a = {i - 1 for i in new_set.difference(int_set)}
-# # a = {8, 5, 12}
-# print a
-# print int_set.difference(new_set)
-# print int_set.difference(new_set).intersection(a)
-# print int_set.difference(new_set).union(a)
-# import itertools
+
+# from itertools import groupby
 #
-# i, j = itertools.tee(int_set, 2)
-# for k in j:
-#     print k
-int_set = {1, 2, 3, 4, 5, 7, 8, 12}
-a = sorted(list(int_set))
-for i in range(2, len(a)):
-    print a[0:i]
-    # print a[1:i+2]
+# def create_intervals(data):
+#     return [(r[0], r[-1]) for r in (list(zip(*g))[1] for _, g in groupby(enumerate(sorted(data)), lambda i: i[1] - i[0]))]
 
-
+# def create_intervals(s):
+#     if len(s) == 0:
+#         return []
+#     s = sorted(s)
+#     ss = s[1:] + [s[0]]
+#     idx = [n for n in range(0, len(s) - 1) if (ss[n] - s[n]) != 1]
+#     idx = sorted(idx + [x + 1 for x in idx])
+#     idx = [0] + idx + [len(s) - 1]
+#
+#     return [(s[idx[n]], s[idx[n + 1]]) for n in range(0, len(idx), 2)]
