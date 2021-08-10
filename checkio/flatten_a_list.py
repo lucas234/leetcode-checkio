@@ -19,7 +19,7 @@ import re
 
 
 def flat_list(_list):
-    pattern = re.compile("(-\d{1,}|\d{1,}).*?")
+    pattern = re.compile("(-\d+|\d+).*?")
     return list(map(int, re.findall(pattern, """%s""" % _list)))
 
 
